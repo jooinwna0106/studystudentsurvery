@@ -498,6 +498,7 @@ function App() {
         {activeTab === "stats" && (
           <StatsView
             data={filtered}
+            rawData={surveys}
             stats={stats}
             selectedGrade={selectedGrade}
             setSelectedGrade={setSelectedGrade}
@@ -623,6 +624,7 @@ function SurveyView({
 
 function StatsView({
   data,
+  rawData,
   stats,
   selectedGrade,
   setSelectedGrade,
@@ -630,6 +632,7 @@ function StatsView({
   insight,
 }: {
   data: Survey[];
+  rawData: Survey[];
   stats: ReturnType<typeof makeStats>;
   selectedGrade: number | "all";
   setSelectedGrade: React.Dispatch<React.SetStateAction<number | "all">>;
@@ -709,7 +712,52 @@ function StatsView({
           <p key={item}>{item}</p>
         ))}
       </div>
+      <RawDataView data={rawData} />
     </div>
+  );
+}
+
+function RawDataView({ data }: { data: Survey[] }) {
+  const sorted = [...data].sort((a, b) => Number(new Date(b.createdAt)) - Number(new Date(a.createdAt)));
+
+  return (
+    <details className="raw-data-panel">
+      <summary>
+        <span>📋 원본 데이터 보기</span>
+        <strong>총 데이터 수: {sorted.length}개</strong>
+      </summary>
+      <div className="raw-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>id</th>
+              <th>학년</th>
+              <th>순공시간</th>
+              <th>집중도</th>
+              <th>노력 대비 성적</th>
+              <th>성적 만족도</th>
+              <th>제출일</th>
+            </tr>
+          </thead>
+          <tbody>
+            {sorted.map((item, index) => (
+              <tr key={item.id}>
+                <td>{index + 1}</td>
+                <td>{item.id.slice(0, 8)}</td>
+                <td>{item.grade}학년</td>
+                <td>{item.studyHours}h</td>
+                <td>{item.focus}%</td>
+                <td>{item.effortResult}</td>
+                <td>{item.satisfaction}/10</td>
+                <td>{new Date(item.createdAt).toLocaleDateString("ko-KR")}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className="raw-count">총 데이터 수 : {sorted.length}개</div>
+    </details>
   );
 }
 

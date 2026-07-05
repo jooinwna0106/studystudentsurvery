@@ -347,6 +347,7 @@ p {
 .analysis-card,
 .similar-panel,
 .insight-box,
+.raw-data-panel,
 .empty-state {
   border: 1px solid rgba(255, 255, 255, 0.92);
   border-radius: 8px;
@@ -576,6 +577,101 @@ input[type="range"] {
   margin: 12px 0 0;
   color: #263137;
   line-height: 1.65;
+}
+
+.raw-data-panel {
+  overflow: hidden;
+}
+
+.raw-data-panel summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 52px;
+  padding: 0 18px;
+  color: #162127;
+  font-weight: 800;
+  list-style: none;
+  cursor: pointer;
+}
+
+.raw-data-panel summary::-webkit-details-marker {
+  display: none;
+}
+
+.raw-data-panel summary::before {
+  content: "⌄";
+  color: #078c83;
+  font-family: "Space Grotesk", "Pretendard Variable", sans-serif;
+  font-size: 18px;
+  transition: transform 180ms ease;
+}
+
+.raw-data-panel[open] summary::before {
+  transform: rotate(180deg);
+}
+
+.raw-data-panel summary span {
+  flex: 1;
+}
+
+.raw-data-panel summary strong {
+  color: #078c83;
+  font-size: 13px;
+}
+
+.raw-table-wrap {
+  margin: 14px 16px 0;
+  overflow-x: auto;
+  border: 1px solid rgba(211, 224, 229, 0.88);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.raw-table-wrap table {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+  color: #152027;
+  font-size: 13px;
+}
+
+.raw-table-wrap th,
+.raw-table-wrap td {
+  padding: 12px 13px;
+  border-bottom: 1px solid rgba(211, 224, 229, 0.86);
+  border-right: 1px solid rgba(211, 224, 229, 0.72);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.raw-table-wrap th {
+  color: #7b8790;
+  background: rgba(244, 248, 250, 0.92);
+  font-family: "Space Grotesk", "Pretendard Variable", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+}
+
+.raw-table-wrap td:first-child,
+.raw-table-wrap th:first-child {
+  color: #8c99a0;
+  text-align: right;
+}
+
+.raw-table-wrap tr:last-child td {
+  border-bottom: 0;
+}
+
+.raw-count {
+  margin: 18px 16px 16px;
+  padding: 16px 18px;
+  border-radius: 8px;
+  color: #078c83;
+  background: rgba(223, 246, 230, 0.82);
+  font-weight: 850;
 }
 
 .ai-layout {
